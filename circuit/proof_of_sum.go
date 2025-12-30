@@ -14,8 +14,8 @@ import (
 )
 
 const (
-	DaySeconds  = 10 * 60
-	SumMaxItems = 2
+	LimitSeconds = 10 * 60
+	SumMaxItems  = 2
 )
 
 type ProofOfSumCircuit struct {
@@ -33,8 +33,8 @@ type ProofOfSumCircuit struct {
 
 func (c *ProofOfSumCircuit) Define(api frontend.API) error {
 	sum := frontend.Variable(0)
-	timeUpper := api.Add(c.StartTime, DaySeconds)
-	timeCmp := cmp.NewBoundedComparator(api, big.NewInt(DaySeconds*2), false)
+	timeUpper := api.Add(c.StartTime, LimitSeconds)
+	timeCmp := cmp.NewBoundedComparator(api, big.NewInt(LimitSeconds*2), false)
 
 	for i := 0; i < SumMaxItems; i++ {
 		if err := c.validateSig(api, c.PayloadHashs[i][:], c.Timestamps[i],
